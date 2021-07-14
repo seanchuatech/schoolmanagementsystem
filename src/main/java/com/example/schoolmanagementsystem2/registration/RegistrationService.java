@@ -6,6 +6,8 @@ import com.example.schoolmanagementsystem2.appuser.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class RegistrationService {
@@ -21,14 +23,38 @@ public class RegistrationService {
             throw new IllegalStateException("email not valid");
         }
 
-        return appUserService.signUpUser(
-                new AppUser(
-                        request.getFirstName(),
-                        request.getLastName(),
-                        request.getEmail(),
-                        request.getPassword(),
-                        AppUserRole.USER
-                )
-        );
+        if(request.getRole() == 0) {
+            return appUserService.signUpUser(
+                    new AppUser(
+                            request.getFirstName(),
+                            request.getLastName(),
+                            request.getEmail(),
+                            request.getPassword(),
+                            AppUserRole.ADMIN
+                    )
+            );
+        } else if (request.getRole() == 1) {
+            return appUserService.signUpUser(
+                    new AppUser(
+                            request.getFirstName(),
+                            request.getLastName(),
+                            request.getEmail(),
+                            request.getPassword(),
+                            AppUserRole.TEACHER
+                    )
+            );
+        } else {
+            return appUserService.signUpUser(
+                    new AppUser(
+                            request.getFirstName(),
+                            request.getLastName(),
+                            request.getEmail(),
+                            request.getPassword(),
+                            AppUserRole.STUDENT
+                    )
+            );
+        }
+
     }
+
 }
