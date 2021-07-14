@@ -16,12 +16,12 @@ public class RegistrationController {
     private final RegistrationService registrationService;
     private final AppUserRepository appUserRepository;
 
-    @GetMapping("users")
+    @GetMapping("/users")
     List<AppUser> getAllUser() {
         return appUserRepository.findAll();
     }
 
-    @PostMapping("create/user")
+    @PostMapping("/users/create")
     public String createNewUser(@RequestBody RegistrationRequest request) {
         return registrationService.register(request);
     }
